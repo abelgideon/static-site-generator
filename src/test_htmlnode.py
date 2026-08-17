@@ -41,7 +41,3 @@ class TestHTMLNode(unittest.TestCase):
             node.props_to_html(),
             ' href="https://www.google.com"',
         )
-
-
-if __name__ == "__main__":
-    _ = unittest.main()
