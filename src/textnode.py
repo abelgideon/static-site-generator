@@ -1,12 +1,14 @@
 from enum import Enum
 from typing import override
 
+from leafnode import LeafNode
+
 
 class TextType(Enum):
-    PLAIN_TEXT = "plain text"
-    BOLD_TEXT = "bold text"
-    ITALIC_TEXT = "italic text"
-    CODE_TEXT = "code text"
+    TEXT = "text"
+    BOLD = "bold"
+    ITALIC = "italic"
+    CODE = "code"
     LINK = "link"
     IMAGE = "image"
 
@@ -33,3 +35,23 @@ class TextNode:
     @override
     def __repr__(self) -> str:
         return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
+
+
+def text_node_to_html_node(text_node: TextNode) -> LeafNode:
+    if text_node.text_type == TextType.TEXT:
+        return LeafNode(None, text_node.text)
+    if text_node.text_type == TextType.BOLD:
+        return LeafNode("b", text_node.text)
+    if text_node.text_type == TextType.ITALIC:
+        return LeafNode("i", text_node.text)
+    if text_node.text_type == TextType.CODE:
+        return LeafNode("code", text_node.text)
+    if text_node.text_type == TextType.LINK:
+        if text_node.url is None:
+            raise ValueError("invalid URL")
+        return LeafNode("a", text_node.text, {"href": text_node.url})
+    if text_node.text_type == TextType.IMAGE:
+        if text_node.url is None:
+            raise ValueError("invalid URL")
+        return LeafNode("img", "", {"src": text_node.url, "alt": text_node.text})
+    raise ValueError(f"invalid text type: {text_node.text_type}")

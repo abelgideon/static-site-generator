@@ -6,7 +6,7 @@ from htmlnode import HTMLNode
 class LeafNode(HTMLNode):
     def __init__(
         self,
-        tag: str,
+        tag: str | None,
         value: str,
         props: dict[str, str] | None = None,
     ) -> None:
@@ -14,9 +14,9 @@ class LeafNode(HTMLNode):
 
     @override
     def to_html(self) -> str:
-        if not self.value:
+        if self.value is None:
             raise ValueError("All leaf nodes must have a value")
-        if not self.tag:
+        if self.tag is None:
             return self.value
 
         if self.props:
