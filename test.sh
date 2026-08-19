@@ -1,1 +1,3 @@
-python3 -m unittest discover -s src
+#!/bin/bash
+
+PYTHONPATH=src python3 -m unittest discover -s src/tests

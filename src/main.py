@@ -1,4 +1,4 @@
-from textnode import TextNode, TextType
+from components.textnode import TextNode, TextType
 
 
 def main():

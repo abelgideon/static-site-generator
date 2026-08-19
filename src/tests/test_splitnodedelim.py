@@ -1,7 +1,7 @@
 import unittest
 
-from splitnodedelim import split_nodes_delimiter
-from textnode import TextNode, TextType
+from components.textnode import TextNode, TextType
+from functions.splitnodedelim import split_nodes_delimiter
 
 
 class TestSplitNodeDelim(unittest.TestCase):

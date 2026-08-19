@@ -1,6 +1,6 @@
 from typing import override
 
-from htmlnode import HTMLNode
+from components.htmlnode import HTMLNode
 
 
 class LeafNode(HTMLNode):

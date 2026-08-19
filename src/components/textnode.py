@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import override
 
-from leafnode import LeafNode
+from components.leafnode import LeafNode
 
 
 class TextType(Enum):
