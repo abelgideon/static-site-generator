@@ -1,5 +1,6 @@
 import os
 import shutil
+from pathlib import Path
 
 from block_markdown import markdown_to_html_node
 
@@ -12,7 +13,7 @@ def main():
 
     copy_src_to_dest("static", "public")
 
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages_recursive("content", "template.html", "public")
 
 
 def copy_src_to_dest(src: str, dest: str):
@@ -59,6 +60,25 @@ def generate_page(from_path: str, template_path: str, dest_path: str):
 
     with open(dest_path, "w", encoding="utf-8") as f:
         _ = f.write(template_content)
+
+
+def generate_pages_recursive(
+    dir_path_content: str, template_path: str, dest_dir_path: str
+):
+    for file in os.listdir(dir_path_content):
+        file_source = os.path.join(dir_path_content, file)
+
+        if os.path.isfile(file_source):
+            generate_page(
+                dest_path=os.path.join(dest_dir_path, f"{Path(file_source).stem}.html"),
+                from_path=file_source,
+                template_path=template_path,
+            )
+
+        else:
+            generate_pages_recursive(
+                file_source, template_path, os.path.join(dest_dir_path, file)
+            )
 
 
 if __name__ == "__main__":
